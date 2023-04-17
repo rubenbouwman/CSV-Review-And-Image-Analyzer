@@ -1,4 +1,4 @@
-# Code used for RGB Code to Name is by Mir AbdulHaseeb
+# Code used for RGB Code to Name is by Mir AbdulHaseeb (colorToText method)
 # https://medium.com/codex/rgb-to-color-names-in-python-the-robust-way-ec4a9d97a01f
 
 import os
