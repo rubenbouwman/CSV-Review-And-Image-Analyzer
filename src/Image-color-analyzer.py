@@ -1,3 +1,6 @@
+# Code for RGB Code to Name is by Mir AbdulHaseeb
+# https://medium.com/codex/rgb-to-color-names-in-python-the-robust-way-ec4a9d97a01f
+
 import os
 from colorthief import ColorThief # >>> pip install colorthief <<<
 from scipy.spatial import KDTree
