@@ -4,15 +4,14 @@
 import os
 from colorthief import ColorThief # >>> pip install colorthief <<<
 from scipy.spatial import KDTree
-from webcolors import (
-    CSS3_HEX_TO_NAMES,
-    hex_to_rgb,
-)
+from webcolors import (CSS3_HEX_TO_NAMES, hex_to_rgb,)
+
 # -------------------- Variables --------------------
 ColorCodes = []
 ColorNames = []
 
 # -------------------- Methods --------------------
+# This method assigns a matching name to the given RGB color code
 def colorToText(rgb_tuple):
     # a dictionary of all the hex and their respective names in css3
     css3_db = CSS3_HEX_TO_NAMES
@@ -26,18 +25,20 @@ def colorToText(rgb_tuple):
     distance, index = kdt_db.query(rgb_tuple)
     return names[index]
 
+# returns the RGB color code of the most dominant color within the image
 def getDominantColor(filename):
     color_thief = ColorThief(f'Images/{filename}')
     # get the dominant color
     dominant_color = color_thief.get_color(quality=1)
     return dominant_color
 
+# Analyzes all images in the 'Images' folder and puts the results in ArrayLists
 def analyzeColors():
     print('Analyzing...')
     for filename in os.listdir('Images'):
         colorCode = getDominantColor(filename)
         colorName = colorToText(colorCode)
-        print(f'File: {filename} >>> Dominant color: {colorCode}   Color name: {colorName}')
+        print(f'Analyzing file... {filename} >>> Dominant color: {colorCode}   Color name: {colorName}')
         ColorNames.append(colorName)
         ColorCodes.append(colorCode)
 
