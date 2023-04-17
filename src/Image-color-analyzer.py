@@ -1,4 +1,4 @@
-# Code for RGB Code to Name is by Mir AbdulHaseeb
+# Code used for RGB Code to Name is by Mir AbdulHaseeb
 # https://medium.com/codex/rgb-to-color-names-in-python-the-robust-way-ec4a9d97a01f
 
 import os
@@ -26,16 +26,20 @@ def colorToText(rgb_tuple):
     distance, index = kdt_db.query(rgb_tuple)
     return names[index]
 
+def getDominantColor(filename):
+    color_thief = ColorThief(f'Images/{filename}')
+    # get the dominant color
+    dominant_color = color_thief.get_color(quality=1)
+    return dominant_color
+
 def analyzeColors():
     print('Analyzing...')
     for filename in os.listdir('Images'):
-        color_thief = ColorThief(f'Images/{filename}')
-        # get the dominant color
-        dominant_color = color_thief.get_color(quality=1)
-        colorName = colorToText(dominant_color)
-        print(f'File: {filename} >>> Dominant color: {dominant_color}   Color name: {colorName}')
+        colorCode = getDominantColor(filename)
+        colorName = colorToText(colorCode)
+        print(f'File: {filename} >>> Dominant color: {colorCode}   Color name: {colorName}')
         ColorNames.append(colorName)
-        ColorCodes.append(dominant_color)
+        ColorCodes.append(colorCode)
 
 # -------------------- run --------------------
 analyzeColors()
