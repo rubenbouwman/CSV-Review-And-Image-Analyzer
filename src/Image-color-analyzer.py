@@ -7,6 +7,8 @@ Colors = []
 def analyzeColors():
     print('Analyzing...')
     for filename in os.listdir('Images'):
+        if filename == '.gitignore':
+            continue
         color_thief = ColorThief(f'Images/{filename}')
         # get the dominant color
         dominant_color = color_thief.get_color(quality=1)
