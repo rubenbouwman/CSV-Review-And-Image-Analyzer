@@ -2,10 +2,11 @@
 # https://medium.com/codex/rgb-to-color-names-in-python-the-robust-way-ec4a9d97a01f
 
 import os
+import numpy as np
+import pandas as pd
 from colorthief import ColorThief
 from scipy.spatial import KDTree
 from webcolors import (CSS3_HEX_TO_NAMES, hex_to_rgb,)
-import timeit
 
 # -------------------- Variables --------------------
 ColorCodes = []
@@ -13,7 +14,7 @@ ColorNames = []
 
 namesDictionary = []
 rgb_values = []
-# -------------------- Methods --------------------
+# -------------------- Color Analyze Methods --------------------
 # Fills the namesDictionary and rgb_values lists with the contents from the css3 dictionary
 def createColorNames():
     # a dictionary of all the hex and their respective names in css3
@@ -45,9 +46,11 @@ def analyzeColors():
         ColorNames.append(colorName)
         ColorCodes.append(colorCode)
 
+# -------------------- Count Methods --------------------
+def countColors():
+        print(pd.value_counts(np.array(ColorNames)))
+
 # -------------------- run --------------------
-start = timeit.default_timer()
 createColorNames()
 analyzeColors()
-stop = timeit.default_timer()
-print('Time: ', stop - start) 
+countColors()
