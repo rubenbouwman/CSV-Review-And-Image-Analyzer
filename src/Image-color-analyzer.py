@@ -45,12 +45,16 @@ def analyzeColors():
         print(f'Analyzing file... {filename} >>> Dominant color: {colorCode}   Color name: {colorName}')
         ColorNames.append(colorName)
         ColorCodes.append(colorCode)
+        return {'filename':filename, 'dominant_color': colorCode, 'color_name': colorName}
 
 # -------------------- Count Methods --------------------
 def countColors():
         print(pd.value_counts(np.array(ColorNames)))
 
+def createCSV():
+     df = pd.DataFrame(analyzeColors())
+     df.to_csv('Output/results.csv', index=False)
+
 # -------------------- run --------------------
 createColorNames()
-analyzeColors()
-countColors()
+createCSV()
