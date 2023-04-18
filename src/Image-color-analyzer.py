@@ -67,10 +67,7 @@ def Analyze():
         
 
 # -------------------- run --------------------
-print('Getting all the colors from CSS3 dictionary...')
 createColorNames()
-
-print('Analyzing...')
 Analyze()
 
 print('Finished analyzing!')
