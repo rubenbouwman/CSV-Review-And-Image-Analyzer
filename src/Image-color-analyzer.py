@@ -4,6 +4,7 @@
 import os
 import numpy as np
 import pandas as pd
+from multiprocessing import Pool, cpu_count
 from colorthief import ColorThief
 from scipy.spatial import KDTree
 from webcolors import (CSS3_HEX_TO_NAMES, hex_to_rgb,)
@@ -37,24 +38,39 @@ def getDominantColor(filename):
     return dominant_color
 
 # Analyzes all images in the 'Images' folder and puts the results in ArrayLists
-def analyzeColors():
-    print('Analyzing...')
-    for filename in os.listdir('Images'):
-        colorCode = getDominantColor(filename)
-        colorName = colorToText(colorCode)
-        print(f'Analyzing file... {filename} >>> Dominant color: {colorCode}   Color name: {colorName}')
-        ColorNames.append(colorName)
-        ColorCodes.append(colorCode)
-        return {'filename':filename, 'dominant_color': colorCode, 'color_name': colorName}
+def analyzeColors(filename):
+    colorCode = getDominantColor(filename)
+    colorName = colorToText(colorCode)
+    print(f'Analyzing file... {filename} >>> Dominant color: {colorCode}   Color name: {colorName}')
+    ColorNames.append(colorName)
+    ColorCodes.append(colorCode)
+    return{'Filename': filename,'Dominant_color': colorCode,'Colorname': colorName}
 
-# -------------------- Count Methods --------------------
+# -------------------- Count Method --------------------
 def countColors():
         print(pd.value_counts(np.array(ColorNames)))
 
-def createCSV():
-     df = pd.DataFrame(analyzeColors())
-     df.to_csv('Output/results.csv', index=False)
+# -------------------- Output Method --------------------
+def createCSV(results):
+    df = pd.DataFrame(results)
+    df.to_csv('Output/color_analysis.csv', index=False)
+
+# -------------------- Final Method --------------------
+def Analyze():
+    if __name__ == '__main__':
+        filenames = os.listdir('Images')
+        # use multiprocessing Pool to run the analysis in parallel
+        with Pool(cpu_count()) as p:
+            results = p.map(analyzeColors, filenames)
+        # save the results to a CSV file using pandas
+        createCSV(results)
+        
 
 # -------------------- run --------------------
+print('Getting all the colors from CSS3 dictionary...')
 createColorNames()
-createCSV()
+
+print('Analyzing...')
+Analyze()
+
+print('Finished analyzing!')
