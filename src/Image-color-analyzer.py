@@ -69,5 +69,3 @@ def Analyze():
 # -------------------- run --------------------
 createColorNames()
 Analyze()
-
-print('Finished analyzing!')
