@@ -46,7 +46,7 @@ def analyzeColors(filename):
     ColorCodes.append(colorCode)
     return{'Filename': filename,'Dominant_color': colorCode,'Colorname': colorName}
 
-# -------------------- Count Method --------------------
+# -------------------- Color Count Method --------------------
 def countColors():
         print(pd.value_counts(np.array(ColorNames)))
 
